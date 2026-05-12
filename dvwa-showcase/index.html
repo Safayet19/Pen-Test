@@ -4,72 +4,177 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DVWA Security Assessment | Safayet Ullah</title>
-  <meta name="description" content="DVWA penetration testing project showcase by Safayet Ullah." />
+  <meta name="description" content="Professional DVWA penetration testing portfolio by Safayet Ullah." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="profile-card">
-      <img src="assets/profile/safayet-ullah.jpg" alt="Safayet Ullah" class="profile-photo" />
-      <h1>Safayet Ullah</h1>
-      <p class="profile-role">Undergraduate Student, Department of CSE</p>
-      <p class="profile-sub">Southeast University</p>
 
-      <div class="profile-list">
-        <div><span>🎓</span><strong>Training</strong><small>Penetration Testing Course</small></div>
-        <div><span>🏛</span><strong>Project</strong><small>Government Project, Bangladesh</small></div>
-        <div><span>🛡</span><strong>Focus</strong><small>Web Application Security</small></div>
+  <!-- Top Navigation -->
+  <nav class="top-nav" id="topNav">
+    <div class="nav-inner">
+      <a href="#top" class="nav-brand">
+        <span class="brand-icon">S</span>
+        <span class="brand-text">Safayet Ullah</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#modules">Modules</a>
+        <a href="#summary">Summary</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero" id="top">
+    <div class="hero-bg"></div>
+    <div class="hero-content reveal">
+      <div class="hero-badge">Penetration Testing Project</div>
+      <h1>DVWA Security<br/>Assessment</h1>
+      <p class="hero-desc">A comprehensive penetration testing showcase covering authentication attacks, injection vulnerabilities, XSS, CSRF, and file-based exploits on the Damn Vulnerable Web Application.</p>
+      <div class="hero-actions">
+        <a href="#modules" class="btn btn-primary">Explore Modules</a>
+        <a href="#about" class="btn btn-outline">About Me</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num" data-count="10">0</span>
+          <span class="stat-label">Modules Tested</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-count="3">0</span>
+          <span class="stat-label">Security Levels</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-count="30">0</span>
+          <span class="stat-label">Payloads Used</span>
+        </div>
       </div>
     </div>
+  </header>
 
-    <nav class="module-nav" aria-label="DVWA module navigation">
-      <div class="nav-title">DVWA Modules</div>
-      <div id="moduleNav"></div>
-    </nav>
-  </aside>
-
-  <main class="content">
-    <header class="hero" id="top">
-      <div class="hero-kicker">Penetration Testing Project</div>
-      <h2>Damn Vulnerable Web Application</h2>
-      <p>Professional showcase of DVWA vulnerability testing with payloads, evidence screenshots, and concise findings.</p>
-      <div class="hero-actions">
-        <a href="#modules" class="btn primary">View Modules</a>
-        <a href="#summary" class="btn ghost">Project Summary</a>
+  <!-- About Section -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-grid reveal">
+        <div class="about-photo-wrap">
+          <img src="assets/profile/safayet-ullah.jpg" alt="Safayet Ullah" class="about-photo" />
+        </div>
+        <div class="about-info">
+          <span class="section-tag">About the Tester</span>
+          <h2>Safayet Ullah</h2>
+          <p class="about-role">Undergraduate Student, Department of CSE<br/>Southeast University</p>
+          <div class="about-details">
+            <div class="detail-item">
+              <div class="detail-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg></div>
+              <div><strong>Training</strong><span>Penetration Testing Course</span></div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+              <div><strong>Project</strong><span>Government Project, Bangladesh</span></div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div><strong>Focus</strong><span>Web Application Security</span></div>
+            </div>
+          </div>
+        </div>
       </div>
-    </header>
+    </div>
+  </section>
 
-    <section class="summary-grid" id="summary">
-      <article class="summary-card">
-        <span class="summary-icon">🎯</span>
-        <h3>Target</h3>
-        <p>Damn Vulnerable Web Application</p>
-      </article>
-      <article class="summary-card">
-        <span class="summary-icon">🧪</span>
-        <h3>Environment</h3>
-        <p>Controlled local DVWA lab</p>
-      </article>
-      <article class="summary-card">
-        <span class="summary-icon">📌</span>
-        <h3>Coverage</h3>
-        <p>Authentication, Injection, XSS, CSRF, File attacks</p>
-      </article>
-    </section>
+  <!-- Project Overview Cards -->
+  <section class="overview-section">
+    <div class="container">
+      <div class="overview-grid reveal">
+        <div class="overview-card">
+          <div class="ov-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
+          <h3>Target</h3>
+          <p>Damn Vulnerable Web Application (DVWA)</p>
+        </div>
+        <div class="overview-card">
+          <div class="ov-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3>Environment</h3>
+          <p>Controlled local DVWA lab environment</p>
+        </div>
+        <div class="overview-card">
+          <div class="ov-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H2v7l6.3 6.3a1 1 0 001.4 0L15 13l-6-8z"/><circle cx="6" cy="9" r="1"/></svg>
+          </div>
+          <h3>Coverage</h3>
+          <p>Authentication, Injection, XSS, CSRF, File Attacks</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section class="modules-section" id="modules">
-      <div class="section-heading">
-        <span>Assessment Evidence</span>
+  <!-- Module Navigation Bar -->
+  <section class="module-nav-section" id="modules">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Assessment Evidence</span>
         <h2>Tested Vulnerability Modules</h2>
+        <p class="section-desc">Each module covers the vulnerability overview, attack methodology, payloads used, and visual evidence of successful exploitation.</p>
       </div>
+      <div class="module-filter reveal" id="moduleFilter"></div>
       <div id="moduleContainer"></div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <div class="image-modal" id="imageModal" aria-hidden="true">
-    <button class="modal-close" id="modalClose" aria-label="Close image preview">×</button>
-    <img id="modalImage" src="" alt="Screenshot preview" />
-    <p id="modalCaption"></p>
+  <!-- Summary Section -->
+  <section class="summary-section" id="summary">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Project Summary</span>
+        <h2>Key Findings</h2>
+      </div>
+      <div class="summary-grid reveal">
+        <div class="finding-card critical">
+          <div class="finding-severity">Critical</div>
+          <h4>File Upload &amp; SQL Injection</h4>
+          <p>Remote code execution via PHP shell upload and full database extraction through UNION-based SQL injection.</p>
+        </div>
+        <div class="finding-card high">
+          <div class="finding-severity">High</div>
+          <h4>XSS &amp; File Inclusion</h4>
+          <p>Reflected, stored, and DOM-based XSS enabling cookie theft. LFI/RFI with security level bypasses.</p>
+        </div>
+        <div class="finding-card medium">
+          <div class="finding-severity">Medium</div>
+          <h4>Brute Force &amp; CSRF</h4>
+          <p>Credential enumeration via Burp Suite Intruder and cross-site password changes without CSRF tokens.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>DVWA Security Assessment &mdash; Safayet Ullah &mdash; Southeast University</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-overlay"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+      <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous">&lsaquo;</button>
+      <img id="lightboxImage" src="" alt="Evidence screenshot" />
+      <button class="lightbox-next" id="lightboxNext" aria-label="Next">&rsaquo;</button>
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+      <div class="lightbox-counter" id="lightboxCounter"></div>
+    </div>
   </div>
 
   <script src="js/data.js"></script>

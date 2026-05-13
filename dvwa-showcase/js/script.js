@@ -281,9 +281,21 @@ function observeActiveSection() {
 
 /* ===== MOBILE SIDEBAR ===== */
 function setupSidebar() {
+  function isMobile() {
+    return window.innerWidth <= 1100;
+  }
+
+  /* Show profile sidebar by default on mobile */
+  if (isMobile()) {
+    sidebar.classList.add("open");
+  }
+
   sidebarToggle.addEventListener("click", (e) => {
     e.stopPropagation();
-    sidebar.classList.toggle("open");
+
+    if (isMobile()) {
+      sidebar.classList.toggle("open");
+    }
   });
 
   sidebar.addEventListener("click", (e) => {
@@ -291,13 +303,21 @@ function setupSidebar() {
   });
 
   document.addEventListener("click", () => {
-    if (window.innerWidth <= 1100) {
+    if (isMobile()) {
       sidebar.classList.remove("open");
     }
   });
 
   moduleNav.addEventListener("click", (e) => {
-    if (e.target.closest(".nav-link")) {
+    if (e.target.closest(".nav-link") && isMobile()) {
+      sidebar.classList.remove("open");
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (isMobile()) {
+      sidebar.classList.add("open");
+    } else {
       sidebar.classList.remove("open");
     }
   });

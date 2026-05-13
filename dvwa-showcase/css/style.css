@@ -1230,15 +1230,15 @@ body {
   .profile-card h1 { font-size: 1.4rem; }
 }
 @media (max-width: 1100px) {
+  .sidebar {
+    z-index: 999 !important;
+  }
+
   .sidebar-toggle {
     display: grid !important;
     position: fixed !important;
     top: 14px !important;
     left: 14px !important;
     z-index: 9999 !important;
-  }
-
-  .sidebar {
-    z-index: 999 !important;
   }
 }

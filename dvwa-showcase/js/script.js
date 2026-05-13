@@ -88,7 +88,7 @@ function moduleHtml(module) {
             </div>
             <div class="carousel-info-bar">
               <div class="carousel-caption" data-caption="${module.id}">${escapeHtml(firstImage[1])}</div>
-              <div class="carousel-detail" data-detail="${module.id}">${firstImage[2] ? escapeHtml(firstImage[2]) : ''}</div>
+              <div class="carousel-detail" data-detail="${module.id}">${firstImage[2] ? escapeHtml(firstImage[2]) : ""}</div>
             </div>
             <div class="carousel-image-wrap" data-open="${module.id}">
               <img src="${firstImage[0]}" alt="${escapeHtml(firstImage[1])}" data-image="${module.id}" />
@@ -145,9 +145,9 @@ function updateCarousel(id, direction) {
   const captionEl = document.querySelector(`[data-caption="${id}"]`);
   const detailEl = document.querySelector(`[data-detail="${id}"]`);
 
-  // Animate image transition
   image.style.opacity = "0";
   image.style.transform = "scale(0.96)";
+
   setTimeout(() => {
     image.src = src;
     image.alt = caption;
@@ -155,7 +155,7 @@ function updateCarousel(id, direction) {
     image.style.transform = "scale(1)";
     counter.textContent = `${nextIndex + 1} / ${total}`;
     captionEl.textContent = caption;
-    if (detailEl) detailEl.textContent = detail || '';
+    if (detailEl) detailEl.textContent = detail || "";
   }, 200);
 }
 
@@ -230,18 +230,23 @@ function animateCounters() {
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
+
         const el = entry.target;
         const target = parseInt(el.dataset.count, 10);
         let current = 0;
         const step = Math.max(1, Math.floor(target / 30));
+
         const interval = setInterval(() => {
           current += step;
+
           if (current >= target) {
             current = target;
             clearInterval(interval);
           }
+
           el.textContent = current + "+";
         }, 35);
+
         observer.unobserve(el);
       });
     },
@@ -260,6 +265,7 @@ function observeActiveSection() {
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
+
         links.forEach((link) =>
           link.classList.toggle("active", link.dataset.target === entry.target.id)
         );
@@ -268,16 +274,28 @@ function observeActiveSection() {
     { rootMargin: "-20% 0px -70% 0px", threshold: 0.01 }
   );
 
-  sections.forEach((section) => { if (section) observer.observe(section); });
+  sections.forEach((section) => {
+    if (section) observer.observe(section);
+  });
 }
 
 /* ===== MOBILE SIDEBAR ===== */
 function setupSidebar() {
-  sidebarToggle.addEventListener("click", () => {
+  sidebarToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
     sidebar.classList.toggle("open");
   });
 
-  // Close sidebar when clicking a nav link on mobile
+  sidebar.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  document.addEventListener("click", () => {
+    if (window.innerWidth <= 1100) {
+      sidebar.classList.remove("open");
+    }
+  });
+
   moduleNav.addEventListener("click", (e) => {
     if (e.target.closest(".nav-link")) {
       sidebar.classList.remove("open");
@@ -288,40 +306,43 @@ function setupSidebar() {
 /* ===== EVENTS ===== */
 function setupEvents() {
   document.addEventListener("click", async (e) => {
-    // Carousel prev/next
     const carouselBtn = e.target.closest(".carousel-btn");
+
     if (carouselBtn) {
       updateCarousel(carouselBtn.dataset.id, carouselBtn.dataset.dir);
       return;
     }
 
-    // Click image to open lightbox
     const imageWrap = e.target.closest("[data-open]");
+
     if (imageWrap) {
       openLightbox(imageWrap.dataset.open);
       return;
     }
 
-    // Copy button
     const copyBtn = e.target.closest(".copy-btn");
+
     if (copyBtn) {
       const text = copyBtn.dataset.code;
+
       try {
         await navigator.clipboard.writeText(text);
         copyBtn.textContent = "Copied!";
         copyBtn.classList.add("copied");
+
         setTimeout(() => {
           copyBtn.textContent = "Copy";
           copyBtn.classList.remove("copied");
         }, 1500);
       } catch {
         copyBtn.textContent = "Select text";
-        setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+        setTimeout(() => {
+          copyBtn.textContent = "Copy";
+        }, 1500);
       }
     }
   });
 
-  // Lightbox controls
   lbClose.addEventListener("click", closeLightbox);
   lbPrev.addEventListener("click", () => navigateLightbox("prev"));
   lbNext.addEventListener("click", () => navigateLightbox("next"));
@@ -329,6 +350,7 @@ function setupEvents() {
 
   document.addEventListener("keydown", (e) => {
     if (!lightbox.classList.contains("active")) return;
+
     if (e.key === "Escape") closeLightbox();
     if (e.key === "ArrowLeft") navigateLightbox("prev");
     if (e.key === "ArrowRight") navigateLightbox("next");

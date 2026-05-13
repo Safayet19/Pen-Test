@@ -281,43 +281,33 @@ function observeActiveSection() {
 
 /* ===== MOBILE SIDEBAR ===== */
 function setupSidebar() {
-  function isMobile() {
-    return window.innerWidth <= 1100;
-  }
+  // show profile/sidebar by default when page opens
+  sidebar.classList.add("open");
 
-  /* Show profile sidebar by default on mobile */
-  if (isMobile()) {
-    sidebar.classList.add("open");
-  }
-
-  sidebarToggle.addEventListener("click", (e) => {
+  // 3-line button: show/hide sidebar
+  sidebarToggle.addEventListener("click", function (e) {
     e.stopPropagation();
-
-    if (isMobile()) {
-      sidebar.classList.toggle("open");
-    }
+    sidebar.classList.toggle("open");
   });
 
-  sidebar.addEventListener("click", (e) => {
+  // clicking inside sidebar should not close it
+  sidebar.addEventListener("click", function (e) {
     e.stopPropagation();
   });
 
-  document.addEventListener("click", () => {
-    if (isMobile()) {
+  // clicking anywhere outside sidebar closes it
+  document.addEventListener("click", function (e) {
+    if (e.target.closest(".sidebar-toggle")) return;
+    if (e.target.closest(".sidebar")) return;
+
+    if (window.innerWidth <= 1100) {
       sidebar.classList.remove("open");
     }
   });
 
-  moduleNav.addEventListener("click", (e) => {
-    if (e.target.closest(".nav-link") && isMobile()) {
-      sidebar.classList.remove("open");
-    }
-  });
-
-  window.addEventListener("resize", () => {
-    if (isMobile()) {
-      sidebar.classList.add("open");
-    } else {
+  // clicking module link closes sidebar
+  moduleNav.addEventListener("click", function (e) {
+    if (e.target.closest(".nav-link") && window.innerWidth <= 1100) {
       sidebar.classList.remove("open");
     }
   });

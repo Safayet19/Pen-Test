@@ -4,176 +4,139 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DVWA Security Assessment | Safayet Ullah</title>
-  <meta name="description" content="Professional DVWA penetration testing portfolio by Safayet Ullah." />
+  <meta name="description" content="A cybersecurity project showcasing DVWA vulnerability testing by Safayet Ullah." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230d9488'/><text y='72' x='12' font-size='60' font-family='monospace' font-weight='bold' fill='white'>SU</text></svg>" type="image/svg+xml" />
 </head>
 <body>
-
-  <!-- Top Navigation -->
-  <nav class="top-nav" id="topNav">
-    <div class="nav-inner">
-      <a href="#top" class="nav-brand">
-        <span class="brand-icon">S</span>
-        <span class="brand-text">Safayet Ullah</span>
-      </a>
-      <div class="nav-links" id="navLinks">
-        <a href="#about">About</a>
-        <a href="#modules">Modules</a>
-        <a href="#summary">Summary</a>
+  <aside class="sidebar" id="sidebar">
+    <div class="profile-card">
+      <div class="profile-photo-wrap">
+        <img src="assets/profile/safayet-ullah.jpg" alt="Safayet Ullah" class="profile-photo" />
+        <div class="photo-ring"></div>
       </div>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
+      <h1>Safayet Ullah</h1>
+      <p class="profile-role">Undergraduate Student, Department of CSE</p>
+      <p class="profile-sub">Southeast University</p>
 
-  <!-- Hero Section -->
-  <header class="hero" id="top">
-    <div class="hero-bg"></div>
-    <div class="hero-content reveal">
-      <div class="hero-badge">Penetration Testing Project</div>
-      <h1>DVWA Security<br/>Assessment</h1>
-      <p class="hero-desc">A comprehensive penetration testing showcase covering authentication attacks, injection vulnerabilities, XSS, CSRF, and file-based exploits on the Damn Vulnerable Web Application.</p>
-      <div class="hero-actions">
-        <a href="#modules" class="btn btn-primary">Explore Modules</a>
-        <a href="#about" class="btn btn-outline">About Me</a>
+      <div class="profile-contact">
+        <a href="mailto:safayetullah019@gmail.com" class="contact-item" title="Email">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+          <span>safayetullah019@gmail.com</span>
+        </a>
+        <a href="tel:+8801837945824" class="contact-item" title="Phone">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.12.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span>+880 1837 945824</span>
+        </a>
+        <div class="contact-item" title="Location">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Dhaka, Bangladesh</span>
+        </div>
       </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-num" data-count="10">0</span>
-          <span class="stat-label">Modules Tested</span>
+
+      <div class="profile-list">
+        <div class="profile-item">
+          <div class="item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg></div>
+          <div><strong>Training</strong><span>Penetration Testing Course</span></div>
         </div>
-        <div class="stat">
-          <span class="stat-num" data-count="3">0</span>
-          <span class="stat-label">Security Levels</span>
+        <div class="profile-item">
+          <div class="item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div><strong>Project</strong><span>Government Project, Bangladesh</span></div>
         </div>
-        <div class="stat">
-          <span class="stat-num" data-count="30">0</span>
-          <span class="stat-label">Payloads Used</span>
+        <div class="profile-item">
+          <div class="item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div><strong>Focus</strong><span>Web Application Security</span></div>
         </div>
       </div>
     </div>
-  </header>
 
-  <!-- About Section -->
-  <section class="about-section" id="about">
-    <div class="container">
-      <div class="about-grid reveal">
-        <div class="about-photo-wrap">
-          <img src="assets/profile/safayet-ullah.jpg" alt="Safayet Ullah" class="about-photo" />
-        </div>
-        <div class="about-info">
-          <span class="section-tag">About the Tester</span>
-          <h2>Safayet Ullah</h2>
-          <p class="about-role">Undergraduate Student, Department of CSE<br/>Southeast University</p>
-          <div class="about-details">
-            <div class="detail-item">
-              <div class="detail-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg></div>
-              <div><strong>Training</strong><span>Penetration Testing Course</span></div>
-            </div>
-            <div class="detail-item">
-              <div class="detail-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-              <div><strong>Project</strong><span>Government Project, Bangladesh</span></div>
-            </div>
-            <div class="detail-item">
-              <div class="detail-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-              <div><strong>Focus</strong><span>Web Application Security</span></div>
-            </div>
-          </div>
+    <nav class="module-nav" aria-label="DVWA module navigation">
+      <div class="nav-title">DVWA Modules</div>
+      <div id="moduleNav"></div>
+    </nav>
+  </aside>
+
+  <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+
+  <main class="content">
+    <header class="hero" id="top">
+      <div class="hero-inner reveal">
+        <div class="hero-badge">Penetration Testing Project</div>
+        <h2>Damn Vulnerable<br/>Web Application</h2>
+        <p>A cybersecurity project showcasing DVWA vulnerability testing in a controlled lab environment. This project includes practical testing of common web application vulnerabilities such as Brute Force, Command Injection, CSRF, File Inclusion, File Upload, SQL Injection, and XSS. Each module presents the tested payloads, evidence screenshots, observed results, and concise findings to demonstrate the impact of insecure web application design and the importance of proper security controls.</p>
+        <div class="hero-actions">
+          <a href="#modules" class="btn primary">View Modules</a>
+          <a href="#summary" class="btn ghost">Project Summary</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Project Overview Cards -->
-  <section class="overview-section">
-    <div class="container">
-      <div class="overview-grid reveal">
-        <div class="overview-card">
-          <div class="ov-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-          </div>
-          <h3>Target</h3>
-          <p>Damn Vulnerable Web Application (DVWA)</p>
+      <div class="hero-stats reveal">
+        <div class="stat-item">
+          <span class="stat-number" data-count="10">0</span>
+          <span class="stat-text">Modules</span>
         </div>
-        <div class="overview-card">
-          <div class="ov-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          </div>
-          <h3>Environment</h3>
-          <p>Controlled local DVWA lab environment</p>
+        <div class="stat-item">
+          <span class="stat-number" data-count="3">0</span>
+          <span class="stat-text">Security Levels</span>
         </div>
-        <div class="overview-card">
-          <div class="ov-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H2v7l6.3 6.3a1 1 0 001.4 0L15 13l-6-8z"/><circle cx="6" cy="9" r="1"/></svg>
-          </div>
-          <h3>Coverage</h3>
-          <p>Authentication, Injection, XSS, CSRF, File Attacks</p>
+        <div class="stat-item">
+          <span class="stat-number" data-count="30">0</span>
+          <span class="stat-text">Payloads</span>
         </div>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- Module Navigation Bar -->
-  <section class="module-nav-section" id="modules">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-tag">Assessment Evidence</span>
+    <section class="summary-grid reveal" id="summary">
+      <article class="summary-card">
+        <div class="sc-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </div>
+        <h3>Target</h3>
+        <p>Damn Vulnerable Web Application</p>
+      </article>
+      <article class="summary-card">
+        <div class="sc-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Environment</h3>
+        <p>Controlled local DVWA lab</p>
+      </article>
+      <article class="summary-card">
+        <div class="sc-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H2v7l6.3 6.3a1 1 0 001.4 0L15 13l-6-8z"/><circle cx="6" cy="9" r="1"/></svg>
+        </div>
+        <h3>Coverage</h3>
+        <p>Authentication, Injection, XSS, CSRF, File attacks</p>
+      </article>
+    </section>
+
+    <section class="modules-section" id="modules">
+      <div class="section-heading reveal">
+        <span>Assessment Evidence</span>
         <h2>Tested Vulnerability Modules</h2>
-        <p class="section-desc">Each module covers the vulnerability overview, attack methodology, payloads used, and visual evidence of successful exploitation.</p>
       </div>
-      <div class="module-filter reveal" id="moduleFilter"></div>
       <div id="moduleContainer"></div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- Summary Section -->
-  <section class="summary-section" id="summary">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-tag">Project Summary</span>
-        <h2>Key Findings</h2>
-      </div>
-      <div class="summary-grid reveal">
-        <div class="finding-card critical">
-          <div class="finding-severity">Critical</div>
-          <h4>File Upload &amp; SQL Injection</h4>
-          <p>Remote code execution via PHP shell upload and full database extraction through UNION-based SQL injection.</p>
-        </div>
-        <div class="finding-card high">
-          <div class="finding-severity">High</div>
-          <h4>XSS &amp; File Inclusion</h4>
-          <p>Reflected, stored, and DOM-based XSS enabling cookie theft. LFI/RFI with security level bypasses.</p>
-        </div>
-        <div class="finding-card medium">
-          <div class="finding-severity">Medium</div>
-          <h4>Brute Force &amp; CSRF</h4>
-          <p>Credential enumeration via Burp Suite Intruder and cross-site password changes without CSRF tokens.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p>DVWA Security Assessment &mdash; Safayet Ullah &mdash; Southeast University</p>
-    </div>
-  </footer>
-
-  <!-- Lightbox Modal -->
+  <!-- Lightbox -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <div class="lightbox-overlay"></div>
-    <div class="lightbox-content">
-      <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
-      <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous">&lsaquo;</button>
-      <img id="lightboxImage" src="" alt="Evidence screenshot" />
-      <button class="lightbox-next" id="lightboxNext" aria-label="Next">&rsaquo;</button>
-      <div class="lightbox-caption" id="lightboxCaption"></div>
-      <div class="lightbox-counter" id="lightboxCounter"></div>
+    <div class="lightbox-body">
+      <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+      <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">&lsaquo;</button>
+      <div class="lb-img-wrap">
+        <img id="lbImage" src="" alt="Screenshot preview" />
+      </div>
+      <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">&rsaquo;</button>
+      <div class="lb-info">
+        <span class="lb-counter" id="lbCounter"></span>
+        <span class="lb-caption" id="lbCaption"></span>
+      </div>
     </div>
   </div>
 

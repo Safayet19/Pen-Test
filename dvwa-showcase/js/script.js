@@ -1,18 +1,18 @@
-/* ===== DOM REFERENCES ===== */
+/* ===== DOM ===== */
+const moduleNav = document.getElementById("moduleNav");
 const moduleContainer = document.getElementById("moduleContainer");
-const moduleFilter = document.getElementById("moduleFilter");
 const lightbox = document.getElementById("lightbox");
-const lightboxImage = document.getElementById("lightboxImage");
-const lightboxCaption = document.getElementById("lightboxCaption");
-const lightboxCounter = document.getElementById("lightboxCounter");
-const lightboxClose = document.getElementById("lightboxClose");
-const lightboxPrev = document.getElementById("lightboxPrev");
-const lightboxNext = document.getElementById("lightboxNext");
-const topNav = document.getElementById("topNav");
-const navToggle = document.getElementById("navToggle");
-const navLinks = document.getElementById("navLinks");
+const lbImage = document.getElementById("lbImage");
+const lbCaption = document.getElementById("lbCaption");
+const lbCounter = document.getElementById("lbCounter");
+const lbClose = document.getElementById("lbClose");
+const lbPrev = document.getElementById("lbPrev");
+const lbNext = document.getElementById("lbNext");
+const sidebar = document.getElementById("sidebar");
+const sidebarToggle = document.getElementById("sidebarToggle");
 
-let currentLightbox = { moduleId: null, index: 0 };
+const state = {};
+let currentLb = { moduleId: null, index: 0 };
 
 /* ===== HELPERS ===== */
 function escapeHtml(value) {
@@ -28,13 +28,16 @@ function severityClass(severity) {
   return severity.toLowerCase();
 }
 
-/* ===== MODULE FILTER BUTTONS ===== */
-function createFilter() {
-  const types = ["All", ...new Set(modules.map((m) => m.type))];
-  moduleFilter.innerHTML = types
+/* ===== SIDEBAR NAV ===== */
+function createNav() {
+  moduleNav.innerHTML = modules
     .map(
-      (type, i) =>
-        `<button class="filter-btn${i === 0 ? " active" : ""}" data-filter="${type}">${type}</button>`
+      (module, index) => `
+    <a class="nav-link" href="#${module.id}" data-target="${module.id}">
+      <span>${String(index + 1).padStart(2, "0")}. ${module.title}</span>
+      <small>${module.severity}</small>
+    </a>
+  `
     )
     .join("");
 }
@@ -56,30 +59,13 @@ function payloadHtml(payloads) {
     .join("");
 }
 
-/* ===== EVIDENCE GALLERY HTML ===== */
-function evidenceHtml(module) {
-  return module.images
-    .map(
-      ([src, caption], i) => `
-    <div class="evidence-thumb" data-module="${module.id}" data-index="${i}">
-      <img src="${src}" alt="${escapeHtml(caption)}" loading="lazy" />
-      <div class="thumb-overlay"><span>${escapeHtml(caption)}</span></div>
-      <div class="thumb-zoom-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-          <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
-        </svg>
-      </div>
-    </div>
-  `
-    )
-    .join("");
-}
-
-/* ===== MODULE CARD HTML ===== */
+/* ===== MODULE CARD ===== */
 function moduleHtml(module) {
+  state[module.id] = 0;
+  const firstImage = module.images[0];
+
   return `
-    <article class="module-card" id="${module.id}" data-module="${module.id}" data-type="${escapeHtml(module.type)}">
+    <article class="module-card" id="${module.id}" data-module="${module.id}">
       <div class="module-header">
         <div>
           <span class="module-tag">${escapeHtml(module.type)}</span>
@@ -90,6 +76,26 @@ function moduleHtml(module) {
       </div>
 
       <div class="module-body">
+        <div class="module-evidence">
+          <h4 class="evidence-title">Visual Evidence (${module.images.length} Screenshots) — Click to enlarge</h4>
+          <div class="carousel" data-carousel="${module.id}">
+            <div class="carousel-top">
+              <span class="carousel-counter" data-counter="${module.id}">1 / ${module.images.length}</span>
+              <div class="carousel-controls">
+                <button class="carousel-btn" data-dir="prev" data-id="${module.id}" aria-label="Previous screenshot">&lsaquo;</button>
+                <button class="carousel-btn" data-dir="next" data-id="${module.id}" aria-label="Next screenshot">&rsaquo;</button>
+              </div>
+            </div>
+            <div class="carousel-info-bar">
+              <div class="carousel-caption" data-caption="${module.id}">${escapeHtml(firstImage[1])}</div>
+              <div class="carousel-detail" data-detail="${module.id}">${firstImage[2] ? escapeHtml(firstImage[2]) : ''}</div>
+            </div>
+            <div class="carousel-image-wrap" data-open="${module.id}">
+              <img src="${firstImage[0]}" alt="${escapeHtml(firstImage[1])}" data-image="${module.id}" />
+            </div>
+          </div>
+        </div>
+
         <div class="module-details">
           <div class="info-block">
             <h4>Vulnerable Point</h4>
@@ -107,36 +113,65 @@ function moduleHtml(module) {
             <h4>Payloads / Commands</h4>
             ${payloadHtml(module.payloads)}
           </div>
-        </div>
 
-        <div class="module-evidence">
-          <h4 class="evidence-header">Visual Evidence (${module.images.length} screenshots)</h4>
-          <div class="evidence-gallery">
-            ${evidenceHtml(module)}
-          </div>
+          <a class="back-top" href="#top">Back to top &uarr;</a>
         </div>
       </div>
     </article>
   `;
 }
 
-/* ===== CREATE MODULES ===== */
 function createModules() {
   moduleContainer.innerHTML = modules.map(moduleHtml).join("");
 }
 
+/* ===== CAROUSEL ===== */
+function updateCarousel(id, direction) {
+  const module = modules.find((m) => m.id === id);
+  if (!module) return;
+
+  const total = module.images.length;
+  const current = state[id] || 0;
+  const nextIndex =
+    direction === "next"
+      ? (current + 1) % total
+      : (current - 1 + total) % total;
+
+  state[id] = nextIndex;
+  const [src, caption, detail] = module.images[nextIndex];
+
+  const image = document.querySelector(`[data-image="${id}"]`);
+  const counter = document.querySelector(`[data-counter="${id}"]`);
+  const captionEl = document.querySelector(`[data-caption="${id}"]`);
+  const detailEl = document.querySelector(`[data-detail="${id}"]`);
+
+  // Animate image transition
+  image.style.opacity = "0";
+  image.style.transform = "scale(0.96)";
+  setTimeout(() => {
+    image.src = src;
+    image.alt = caption;
+    image.style.opacity = "1";
+    image.style.transform = "scale(1)";
+    counter.textContent = `${nextIndex + 1} / ${total}`;
+    captionEl.textContent = caption;
+    if (detailEl) detailEl.textContent = detail || '';
+  }, 200);
+}
+
 /* ===== LIGHTBOX ===== */
-function openLightbox(moduleId, index) {
+function openLightbox(moduleId) {
   const module = modules.find((m) => m.id === moduleId);
   if (!module) return;
 
-  currentLightbox = { moduleId, index };
-  const [src, caption] = module.images[index];
+  const index = state[moduleId] || 0;
+  currentLb = { moduleId, index };
+  const [src, caption, detail] = module.images[index];
 
-  lightboxImage.src = src;
-  lightboxImage.alt = caption;
-  lightboxCaption.textContent = caption;
-  lightboxCounter.textContent = `${index + 1} / ${module.images.length}`;
+  lbImage.src = src;
+  lbImage.alt = caption;
+  lbCaption.textContent = detail || caption;
+  lbCounter.textContent = `${index + 1} / ${module.images.length}`;
 
   lightbox.classList.add("active");
   lightbox.setAttribute("aria-hidden", "false");
@@ -146,24 +181,28 @@ function openLightbox(moduleId, index) {
 function closeLightbox() {
   lightbox.classList.remove("active");
   lightbox.setAttribute("aria-hidden", "true");
-  lightboxImage.src = "";
+  lbImage.src = "";
   document.body.style.overflow = "";
 }
 
 function navigateLightbox(direction) {
-  const module = modules.find((m) => m.id === currentLightbox.moduleId);
+  const module = modules.find((m) => m.id === currentLb.moduleId);
   if (!module) return;
 
   const total = module.images.length;
-  const nextIndex =
+  currentLb.index =
     direction === "next"
-      ? (currentLightbox.index + 1) % total
-      : (currentLightbox.index - 1 + total) % total;
+      ? (currentLb.index + 1) % total
+      : (currentLb.index - 1 + total) % total;
 
-  openLightbox(currentLightbox.moduleId, nextIndex);
+  const [src, caption, detail] = module.images[currentLb.index];
+  lbImage.src = src;
+  lbImage.alt = caption;
+  lbCaption.textContent = detail || caption;
+  lbCounter.textContent = `${currentLb.index + 1} / ${total}`;
 }
 
-/* ===== SCROLL ANIMATIONS ===== */
+/* ===== SCROLL REVEAL ===== */
 function setupScrollReveal() {
   const reveals = document.querySelectorAll(".reveal");
   const cards = document.querySelectorAll(".module-card");
@@ -176,7 +215,7 @@ function setupScrollReveal() {
         }
       });
     },
-    { rootMargin: "0px 0px -60px 0px", threshold: 0.1 }
+    { rootMargin: "0px 0px -50px 0px", threshold: 0.1 }
   );
 
   reveals.forEach((el) => observer.observe(el));
@@ -194,7 +233,7 @@ function animateCounters() {
         const el = entry.target;
         const target = parseInt(el.dataset.count, 10);
         let current = 0;
-        const step = Math.max(1, Math.floor(target / 40));
+        const step = Math.max(1, Math.floor(target / 30));
         const interval = setInterval(() => {
           current += step;
           if (current >= target) {
@@ -202,7 +241,7 @@ function animateCounters() {
             clearInterval(interval);
           }
           el.textContent = current + "+";
-        }, 30);
+        }, 35);
         observer.unobserve(el);
       });
     },
@@ -212,63 +251,54 @@ function animateCounters() {
   counters.forEach((el) => observer.observe(el));
 }
 
-/* ===== NAV SCROLL EFFECT ===== */
-function setupNavScroll() {
-  let ticking = false;
-  window.addEventListener("scroll", () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      topNav.classList.toggle("scrolled", window.scrollY > 40);
-      ticking = false;
-    });
-  });
+/* ===== ACTIVE NAV HIGHLIGHT ===== */
+function observeActiveSection() {
+  const links = [...document.querySelectorAll(".nav-link")];
+  const sections = modules.map((m) => document.getElementById(m.id));
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach((link) =>
+          link.classList.toggle("active", link.dataset.target === entry.target.id)
+        );
+      });
+    },
+    { rootMargin: "-20% 0px -70% 0px", threshold: 0.01 }
+  );
+
+  sections.forEach((section) => { if (section) observer.observe(section); });
 }
 
-/* ===== MOBILE NAV TOGGLE ===== */
-function setupMobileNav() {
-  navToggle.addEventListener("click", () => {
-    navLinks.classList.toggle("open");
+/* ===== MOBILE SIDEBAR ===== */
+function setupSidebar() {
+  sidebarToggle.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
   });
 
-  navLinks.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") {
-      navLinks.classList.remove("open");
+  // Close sidebar when clicking a nav link on mobile
+  moduleNav.addEventListener("click", (e) => {
+    if (e.target.closest(".nav-link")) {
+      sidebar.classList.remove("open");
     }
   });
 }
 
-/* ===== FILTER MODULES ===== */
-function setupFilter() {
-  moduleFilter.addEventListener("click", (e) => {
-    const btn = e.target.closest(".filter-btn");
-    if (!btn) return;
-
-    document
-      .querySelectorAll(".filter-btn")
-      .forEach((b) => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    const filter = btn.dataset.filter;
-    const cards = document.querySelectorAll(".module-card");
-
-    cards.forEach((card, i) => {
-      const match = filter === "All" || card.dataset.type === filter;
-      card.style.display = match ? "" : "none";
-      if (match) {
-        card.style.animation = `fadeInUp 0.5s ease ${i * 0.05}s both`;
-      }
-    });
-  });
-}
-
-/* ===== ALL EVENTS ===== */
+/* ===== EVENTS ===== */
 function setupEvents() {
   document.addEventListener("click", async (e) => {
-    // Evidence thumbnail -> lightbox
-    const thumb = e.target.closest(".evidence-thumb");
-    if (thumb) {
-      openLightbox(thumb.dataset.module, parseInt(thumb.dataset.index, 10));
+    // Carousel prev/next
+    const carouselBtn = e.target.closest(".carousel-btn");
+    if (carouselBtn) {
+      updateCarousel(carouselBtn.dataset.id, carouselBtn.dataset.dir);
+      return;
+    }
+
+    // Click image to open lightbox
+    const imageWrap = e.target.closest("[data-open]");
+    if (imageWrap) {
+      openLightbox(imageWrap.dataset.open);
       return;
     }
 
@@ -292,10 +322,9 @@ function setupEvents() {
   });
 
   // Lightbox controls
-  lightboxClose.addEventListener("click", closeLightbox);
-  lightboxPrev.addEventListener("click", () => navigateLightbox("prev"));
-  lightboxNext.addEventListener("click", () => navigateLightbox("next"));
-
+  lbClose.addEventListener("click", closeLightbox);
+  lbPrev.addEventListener("click", () => navigateLightbox("prev"));
+  lbNext.addEventListener("click", () => navigateLightbox("next"));
   document.querySelector(".lightbox-overlay").addEventListener("click", closeLightbox);
 
   document.addEventListener("keydown", (e) => {
@@ -307,11 +336,10 @@ function setupEvents() {
 }
 
 /* ===== INIT ===== */
-createFilter();
+createNav();
 createModules();
 setupEvents();
 setupScrollReveal();
 animateCounters();
-setupNavScroll();
-setupMobileNav();
-setupFilter();
+observeActiveSection();
+setupSidebar();
